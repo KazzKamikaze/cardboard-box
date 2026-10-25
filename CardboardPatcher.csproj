@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>Cardboard Box Patcher</AssemblyName><Version>1.0.1</Version>
+    <Product>Cardboard Box Patcher</Product><Authors>Cardboard Box</Authors>
+    <PublishSingleFile>true</PublishSingleFile><SelfContained>true</SelfContained><RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract><EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>embedded</DebugType>
+    <Deterministic>true</Deterministic><PathMap>$(MSBuildProjectDirectory)=/_/CardboardBoxPatcher</PathMap>
+  </PropertyGroup>
+</Project>

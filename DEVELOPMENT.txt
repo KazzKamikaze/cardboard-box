@@ -1,0 +1,49 @@
+CARDBOARD BOX PATCHER - MAINTAINER NOTES
+
+Build: .NET SDK 9, Windows x64; no third-party NuGet packages are required.
+dotnet build CardboardPatcher.csproj -c Release
+
+The signed feed is an envelope containing the exact manifest bytes in base64
+and an ECDSA-P256/SHA-256 signature. Trust.cs contains only the public key.
+Never commit, distribute or upload the private key. The maintainer key is
+stored outside this repository under the maintainer's private user directory.
+
+Build-Release.ps1 -Mrpack <tested.mrpack> -Version <version> -Sequence <increasing-number> -OutputDirectory <new-directory>
+
+The .mrpack is the allowlisted release input, not a raw player profile. The
+publisher rewrites README bookkeeping, carries publisher URLs and hashes over,
+and puts custom pack-owned overrides into cardboard-assets.zip. Existing-only
+base files are deliberately excluded from that public asset bundle. Review
+their distribution/source situation before changing that policy.
+
+Run --test <new-test-directory> with the compiled DLL through dotnet. The tests
+use disposable files, local HTTP fixtures and a generated test key. They do not
+launch Minecraft, query its tokens or touch the selected player profile.
+Run --verify-release <cardboard-release.json> <report.json> to verify the real
+manifest signature and every bundled payload hash before publication.
+
+Publish-GitHub.ps1 -Version <version> -AssetDirectory <prepared-directory>
+uses the existing Git Credential Manager sign-in, creates a draft release,
+uploads all required assets, verifies returned size/digests, then publishes it.
+It refuses to replace an existing tag. The stable feed is the latest release's
+cardboard-release.json. Future releases must increment both version and sequence.
+
+Before publishing, include START-HERE.txt, a source ZIP excluding bin/obj/private
+keys, and refreshed SHA256SUMS.txt in the prepared directory. Avoid making an
+unrelated GitHub release latest; that would change what the stable endpoint sees.
+
+CLI automation: --auto <game-folder> [https-feed-url]
+returns nonzero when a required update could not complete. It requires both
+Minecraft and Modrinth to be closed, so it is not a Modrinth launch-hook command.
+--check [https-feed-url] [report.json] checks the signed release without patching.
+
+Recovery uses an atomically replaced on-disk operation journal and file backups.
+Only named manifest files can be managed; no recursive deletion is used. File
+replacement swaps directory entries instead of modifying shared hardlink data.
+Personal defaults are not tracked as managed files for later deletion. Launcher
+database registration, new loader installation, forced shutdown, Windows login
+startup registration and patcher self-replacement are intentionally outside 1.0.
+
+Validation establishes update-engine behavior and signed-feed operation.
+It does not establish that Minecraft launches on every recipient's Modrinth
+version. Test one complete recipient update and game launch before a wide rollout.

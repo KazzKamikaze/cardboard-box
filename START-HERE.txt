@@ -1,0 +1,64 @@
+CARDBOARD BOX PATCHER 1.0.1
+
+DOWNLOAD
+https://github.com/KazzKamikaze/cardboard-box/releases/latest
+
+FIRST USE
+1. Import the supplied Cardboard Box base .mrpack into Modrinth and launch it once.
+2. Close Minecraft and fully exit Modrinth, including its tray icon if present.
+3. Run Cardboard Box Patcher.exe. It includes its own .NET runtime; no Python,
+   Java arguments, administrator rights or separate runtime installation are needed.
+4. Choose the existing Cardboard Box game folder if it is not selected already.
+   This is the folder containing mods and options.txt, under Modrinth's profiles.
+5. Leave automatic installation enabled. The patcher checks the signed stable
+   GitHub release on opening and every 15 minutes while the patcher remains open.
+6. Once the patcher reports completion, open Modrinth and play normally.
+
+UPDATES
+Only approved complete pack snapshots are installed. Mods are pinned to the
+versions in the signed release; the patcher does not update every mod to latest.
+Unchanged files are checked and reused. Changed publisher files are downloaded
+from their original publishers. Custom pack assets use a verified release bundle.
+The assets bundle is cached as a unit; it may be downloaded in full when pack
+assets change, while only changed installed files are replaced.
+
+The patcher will not close your game or launcher. If they are open, it waits
+and reports why; retry after closing them, or leave the patcher open for its
+next scheduled check. Closing the patcher stops automatic checks.
+
+PERSONAL FILES
+Worlds, maps, Voxy caches, screenshots, keybindings, server lists and personal
+shader/video preferences are preserved. Pack-owned configs, quests, menus and
+approved binaries may be replaced. Unknown additional mods are preserved, but
+their compatibility is your responsibility. A modified obsolete managed file
+blocks its removal instead of being silently deleted.
+
+BACKUPS AND REPAIR
+Every changed or removed file is backed up under .cardboard-patcher/backups
+inside the selected profile. Restore backup reverts the last completed update
+and disables automatic installation so it is not immediately applied again.
+Do not delete this folder while an update is running. An interrupted file
+transaction is recovered the next time an update or rollback is attempted.
+Install update also checks and repairs managed files even at the current version.
+Backups and the asset cache are retained; there is no automatic pruning in 1.0.
+
+BASE PACK AND LAUNCHER LIMITS
+This is an updater for an existing installation, not a Minecraft launcher or a
+fresh Modrinth instance installer. Keep the supplied base .mrpack available.
+Four custom third-party base binaries (Neo-Voxy, OctoLib, More Culling and the
+Drippy early-window helper) are verified in place and are not publicly mirrored
+by the patcher. Missing/mismatched copies require the matching base installation.
+Minecraft or NeoForge version changes require a new Modrinth import. The patcher
+does not modify Modrinth's account, database, Java or memory settings. Profiles
+whose launcher marks files read-only are rejected before replacement; use an
+unlinked/custom profile for external patching.
+
+SECURITY
+Release manifests are verified against the public key embedded in this app.
+Downloaded files have pinned SHA-512 hashes and sizes. Unsafe paths, executable
+payloads, unsigned changes and automatic downgrades are rejected. The private
+release-signing key is not included. The Windows executable itself is not
+Authenticode-signed; a release signature is a separate integrity check.
+
+Initial release: 0.3.0-friends.3 / Minecraft 1.21.1 / NeoForge 21.1.240.
+Keep the instance at 8192 MB Java heap; leave Additional Java Arguments empty.
